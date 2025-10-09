@@ -1,4 +1,8 @@
 import jwt from "jsonwebtoken"
+import dotenv from "dotenv"
+
+dotenv.config()
+
 
 export const generateToken = (UserId, res) =>{
     // create token for user
@@ -10,7 +14,7 @@ export const generateToken = (UserId, res) =>{
     const token = jwt.sign({UserId}, JWT_SECRET,{
         expiresIn: "7d",
     })
-    //"jwt in cookie the name can be anything"
+    //"jwt in cookie the name can be anything..."
     res.cookie("jwt",token, {
         maxAge: 7*24*60*60*1000, //7d in ms
         httpOnly: true,
