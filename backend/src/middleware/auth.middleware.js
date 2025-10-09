@@ -3,7 +3,7 @@ import User from "../models/User.js";
 import dotenv from "dotenv";
 
 dotenv.config();
-//import { ENV } from "../lib/env"
+
 
 
 export const protectRoute = async(req, res, next) => {
