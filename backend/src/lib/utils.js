@@ -1,4 +1,8 @@
 import jwt from "jsonwebtoken"
+import dotenv from "dotenv"
+
+dotenv.config()
+
 
 export const generateToken = (UserId, res) =>{
     // create token for user
