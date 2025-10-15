@@ -92,7 +92,8 @@ export const getChatPartners = async(req, res) => {
         ]
 
 
-        const chatPartners = await User.find({_id: {$in: chatPartnerIds}}).select("-password")
+        const chatPartners = await User.find({ _id: { $in: chatPartnerIds } }).select("-password");
+
         
         res.status(200).json(chatPartners)
 
