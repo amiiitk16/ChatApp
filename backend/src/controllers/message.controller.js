@@ -72,5 +72,32 @@ export const sendMessage = async(req,res) => {
 
 
 export const getChatPartners = async(req, res) => {
-    
+     try {
+        const loggedInUser =req.user._id
+
+        //find all the messages where the loggedin user is either sender or reciever
+
+        const messages = await Message.find({
+            $or: [{ senderId: loggedInUser },
+                { recieverId: loggedInUser }
+            ]
+        })
+
+        const chatPartnerIds = [
+            ...new Set(
+                messages.map((msg) =>
+                msg.senderId.toString() === loggedInUser.toString() ? msg.recieverId.toString() : senderId.toString()
+                )
+            )
+        ]
+
+
+        const chatPartners = await User.find({_id: {$in: chatPartnerIds}}).select("-password")
+        
+        res.status(200).json(chatPartners)
+
+    } catch (error) {
+        console.log("Error in getchatPartners", error.message)
+        res.status(500).json({error: "Internal Server Error"})
+     }
 }
